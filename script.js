@@ -24,6 +24,7 @@ rollDiceButton.addEventListener('click', async () => {
     if (d20Result === 1) {
         mutationText = "Некроз! Мутации невозможны, ваш персонаж ослабевает.";
         d100Result.textContent = "";
+        showPopup("Некроз! "); 
     } else if (d20Result >= 2 && d20Result <= 9) {
         const d100ResultValue = Math.floor(Math.random() * 100) + 1;
         d100Result.textContent = `Вы бросили кубик d100 и выпало: ${d100ResultValue}`;
@@ -33,9 +34,9 @@ rollDiceButton.addEventListener('click', async () => {
         d100Result.textContent = `Вы бросили кубик d100 и выпало: ${d100ResultValue}`;
         mutationText = getGoodMutation(d100ResultValue);
     } else if (d20Result === 20) {
-        mutationText = "Супермутация! Вы получаете уникальные способности!";
+        mutationText = "Супермутация! Вы можете выбрать одну супермутацию!";
         d100Result.textContent = "";
-        showPopup("Поздравляем! Вы получили супермутацию!"); // Показать всплывающее окно
+        showPopup("Вы получили супермутацию!"); 
     } else {
         mutationText = "Нет доступных мутаций.";
         d100Result.textContent = "";
@@ -43,10 +44,10 @@ rollDiceButton.addEventListener('click', async () => {
 
     mutationResult.innerHTML = mutationText;
 
-    // Добавляем в историю
+    
     const newRoll = { d20: d20Result, mutation: mutationText };
     await saveHistory(newRoll);
-    loadHistory(); // Обновляем историю после сохранения
+    loadHistory(); 
 });
 
 function getBadMutation(d100) {
